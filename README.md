@@ -29,8 +29,10 @@ This was my **first larger project** where I learned to set up the whole system 
 | **Course** | JavaScript 3 (FE22) |
 | **Type** | **Major assignment** (not `slutprojekt`, not JS1/JS2 mini project) |
 | **Period** | Oct–Nov 2023 |
-| **Original DB** | MongoDB Atlas `JS3-app` / `Users` |
-| **Also used** | Redis (user + JWT cache in original Express version) |
+| **Original Atlas cluster** | `cluster2.6uupj5n.mongodb.net` (Cluster2) |
+| **Original DB / collection** | `JS3-app` / `Users` |
+| **Not the same as** | `receptBloggCluster` — that belongs to the separate recipe-book project |
+| **Also used** | Postman (API + IP access testing), Redis (user + JWT cache) |
 
 ## Features
 
@@ -39,14 +41,19 @@ This was my **first larger project** where I learned to set up the whole system 
 - bcrypt passwords (legacy MD5 still accepted)
 - Netlify deployment with Next.js runtime
 
-## Local setup
+## Local development (optional)
+
+You do **not** need your computer running for the public Netlify site. Local dev is only if you want to change code:
 
 ```bash
 cp .env.example .env.local
-# MONGODB_URI, JWT_SECRET, MONGODB_DB_NAME=JS3-app, MONGODB_COLLECTION=Users
+# MONGODB_URI → your Atlas connection string
+# JWT_SECRET, MONGODB_DB_NAME=JS3-app, MONGODB_COLLECTION=Users
 npm install
 npm run dev
 ```
+
+The app runs on `localhost:3000`; MongoDB stays in Atlas (cloud). In 2023, **Postman** was used to hit the API (e.g. on port 3013) and to confirm Atlas **IP Access List** allowed the current machine.
 
 ## Netlify environment variables
 
