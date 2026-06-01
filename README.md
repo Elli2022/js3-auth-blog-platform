@@ -18,9 +18,9 @@ This was my **first larger project** where I learned to set up the whole system 
 
 ## Screenshots
 
-| Home | Register | Dashboard |
-|------|----------|-----------|
-| ![Home](./screenshots/home.png) | ![Sign in](./screenshots/signin.png) | ![Dashboard](./screenshots/dashboard.png) |
+| Home | Register | Sign in |
+|------|----------|---------|
+| ![Home](./screenshots/home.png) | ![Register](./screenshots/register.png) | ![Sign in](./screenshots/signin.png) |
 
 ## Course context
 

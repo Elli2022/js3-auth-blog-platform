@@ -11,8 +11,20 @@ export default async function handler(
       return res.status(201).json({ err: 0, data: saved });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Registration failed";
-      const status = message.includes("missing") || message.includes("invalid") ? 400 : 500;
-      return res.status(status).json({ err: 1, data: message });
+      const isClient =
+        message.includes("missing") ||
+        message.includes("invalid") ||
+        message.includes("exists");
+      const isDb =
+        message.includes("MongoDB") ||
+        message.includes("ENOTFOUND") ||
+        message.includes("Database") ||
+        message.includes("configured");
+      const status = isClient ? 400 : isDb ? 503 : 500;
+      const friendly = isDb
+        ? "MongoDB Atlas är inte tillgänglig. Klustret från 2023 verkar vara borttaget — skapa ett nytt cluster och uppdatera MONGODB_URI på Netlify."
+        : message;
+      return res.status(status).json({ err: 1, data: friendly });
     }
   }
 
