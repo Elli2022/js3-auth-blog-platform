@@ -1,24 +1,26 @@
-//src/components/ModeToggle.tsx
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import React, { useState, useEffect } from "react";
-import Button from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/Field";
 
 export default function ModeToggle() {
   const { theme, setTheme } = useTheme();
-  const [isMounted, setIsMounted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
-  if (!isMounted) return null;
+  if (!mounted) return null;
 
   return (
-    <div className="fixed top-4 right-4">
-      <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-        {theme === "dark" ? <Sun size="1.2rem" /> : <Moon size="1.2rem" />}
-        <span className="sr-only">Toggle Dark Mode</span>
+    <div className="fixed right-4 top-16 z-50">
+      <Button
+        type="button"
+        variant="secondary"
+        aria-label="Byt tema"
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="h-10 w-10 rounded-full p-0 shadow-lg"
+      >
+        {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
       </Button>
     </div>
   );

@@ -1,76 +1,74 @@
-# Auth & Blog (users-ms-main)
+# js3-auth-blog-platform
 
 [![Live demo](https://img.shields.io/badge/demo-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://elli-auth-blog.netlify.app)
 
-Full-stack app from **autumn 2023** coursework: Next.js UI with theme toggle, JWT auth, MongoDB, and protected blog posts. Consolidated from the chronological `My-Next.js-Project` and `users-ms-*` repositories.
+**JavaScript 3 major assignment (FE22, autumn 2023)** — full-stack auth & blog app.  
+Originally built as many small repos (`users-ms-*`, `My-Next.js-Project`); consolidated here.
+
+This was my **first larger project** where I learned to set up the whole system myself: Next.js UI, API, **MongoDB Atlas**, **Redis** caching, and JWT. Only a few classmates finished a complete version without constant teacher help (~3, including me).
 
 ## Live demo
 
 **https://elli-auth-blog.netlify.app**
 
-About page (school background + link): [/about](https://elli-auth-blog.netlify.app/about)
+| Page | URL |
+|------|-----|
+| About (course background + live link) | [/about](https://elli-auth-blog.netlify.app/about) |
+| Health check | [/api/health](https://elli-auth-blog.netlify.app/api/health) |
 
 ## Screenshots
 
-| Home | Sign in | Dashboard |
-|------|---------|-----------|
+| Home | Register | Dashboard |
+|------|----------|-----------|
 | ![Home](./screenshots/home.png) | ![Sign in](./screenshots/signin.png) | ![Dashboard](./screenshots/dashboard.png) |
+
+## Course context
+
+| | |
+|--|--|
+| **Course** | JavaScript 3 (FE22) |
+| **Type** | **Major assignment** (not `slutprojekt`, not JS1/JS2 mini project) |
+| **Period** | Oct–Nov 2023 |
+| **Original DB** | MongoDB Atlas `JS3-app` / `Users` |
+| **Also used** | Redis (user + JWT cache in original Express version) |
 
 ## Features
 
-- Light / dark theme (`next-themes`)
-- User registration and JWT sign-in
-- Authenticated blog post creation
-- MongoDB Atlas + bcrypt passwords (legacy MD5 accounts still work)
-- Deployed on Netlify (Next.js API routes)
+- Dark / light theme
+- Registration, JWT sign-in, protected blog posts
+- bcrypt passwords (legacy MD5 still accepted)
+- Netlify deployment with Next.js runtime
 
-## School background
-
-| Question | Answer |
-|----------|--------|
-| Program | **FE22** (frontend developer track), same era as other `FE22-*` repos |
-| Period | **Oct–Nov 2023** (version branches dated weekly) |
-| Type | Progressive **full-stack / microservice** exercise—not a named *slutprojekt* |
-| Original shape | Many small GitHub repos → merged into `users-ms-main` + `My-Next.js-Project` |
-
-Substitute-teacher coverage (~6 weeks) is **not** mentioned in git history; only your recollection—commits show steady weekly snapshots instead.
-
-## Stack
-
-- Next.js 14, TypeScript, Tailwind CSS
-- MongoDB, JWT, bcrypt
-- Netlify (`@netlify/plugin-nextjs`)
-
-## Local development
+## Local setup
 
 ```bash
 cp .env.example .env.local
-# Set MONGODB_URI and JWT_SECRET
+# MONGODB_URI, JWT_SECRET, MONGODB_DB_NAME=JS3-app, MONGODB_COLLECTION=Users
 npm install
 npm run dev
 ```
-
-Open http://localhost:3000
 
 ## Netlify environment variables
 
 | Variable | Required |
 |----------|----------|
-| `MONGODB_URI` | Yes |
+| `MONGODB_URI` | Yes (Atlas connection string) |
 | `JWT_SECRET` | Yes |
-| `MONGODB_DB_NAME` | No (default `db_my_app`) |
-| `MONGODB_COLLECTION` | No (default `coll_users`) |
-| `NEXT_PUBLIC_SITE_URL` | Yes after deploy (your Netlify URL) |
+| `MONGODB_DB_NAME` | `JS3-app` |
+| `MONGODB_COLLECTION` | `Users` |
+| `NEXT_PUBLIC_SITE_URL` | `https://elli-auth-blog.netlify.app` |
+
+If registration fails, open `/api/health` — it reports whether MongoDB is reachable.
 
 ## API
 
 | Method | Path | Description |
 |--------|------|-------------|
+| `GET` | `/api/health` | DB / config status |
 | `POST` | `/api/v1/user` | Register |
-| `GET` | `/api/v1/user?username=` | Lookup users |
-| `POST` | `/api/login` | Sign in → `{ token, userId }` |
-| `POST` | `/api/v1/user/blog` | Create post (Bearer JWT) |
+| `POST` | `/api/login` | Sign in |
+| `POST` | `/api/v1/user/blog` | Blog post (Bearer JWT) |
 
-## Version history (legacy branches)
+## Legacy branches
 
-See branch table in repo history: `version/main` … `version/redis-cache` → `master` (2023 snapshots preserved).
+Version snapshots from 2023 coursework: `version/main` … `version/redis-cache` on `master` history.

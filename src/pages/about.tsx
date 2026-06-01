@@ -1,81 +1,63 @@
 import Link from "next/link";
-import { liveDemoUrl, siteName } from "@/lib/site";
+import { githubRepoUrl, liveDemoUrl, siteName } from "@/lib/site";
+import { Card } from "@/components/ui/Card";
 
 export default function About() {
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-none space-y-6 text-left">
-      <h1 className="text-3xl font-bold">About {siteName}</h1>
+    <Card className="prose prose-zinc dark:prose-invert max-w-none">
+      <h1 className="!mt-0 text-3xl font-bold">Om {siteName}</h1>
 
       <p>
-        Full-stack learning project from autumn 2023: Next.js UI (theme toggle,
-        routing, forms) plus a user microservice (registration, JWT login,
-        MongoDB, optional Redis caching) and authenticated blog posts.
+        Det här är min <strong>större uppgift i JavaScript 3</strong> (FE22,
+        hösten 2023). Projektet hette ursprungligen bland annat{" "}
+        <em>users-ms</em> och <em>My-Next.js-Project</em> — många små GitHub-repos
+        som jag senare slog ihop till{" "}
+        <a href={githubRepoUrl}>js3-auth-blog-platform</a>.
       </p>
 
-      <h2 className="text-xl font-semibold">Live demo</h2>
+      <h2>Live-demo</h2>
       <p>
-        <a
-          className="text-blue-600 underline dark:text-blue-400"
-          href={liveDemoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href={liveDemoUrl} target="_blank" rel="noopener noreferrer">
           {liveDemoUrl}
         </a>
       </p>
-      <p className="text-sm text-neutral-600 dark:text-neutral-400">
-        Registration and login require MongoDB Atlas and{" "}
-        <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-800">
-          JWT_SECRET
-        </code>{" "}
-        configured in Netlify environment variables.
-      </p>
 
-      <h2 className="text-xl font-semibold">School background</h2>
-      <p>
-        This work grew out of the same period as other{" "}
-        <strong>FE22 (frontend developer)</strong> coursework—e.g. JavaScript 2
-        mini projects in spring 2023 and HTML/CSS coursework—with many small
-        GitHub snapshots merged later into{" "}
-        <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-800">
-          users-ms-main
-        </code>{" "}
-        and{" "}
-        <code className="rounded bg-neutral-200 px-1 dark:bg-neutral-800">
-          My-Next.js-Project
-        </code>
-        .
-      </p>
-      <ul className="list-disc space-y-2 pl-6">
+      <h2>Vad jag lärde mig</h2>
+      <ul>
+        <li>Sätta upp ett helt system själv — frontend, API, databas, cache</li>
         <li>
-          <strong>Oct–Nov 2023:</strong> incremental versions (theme → routing
-          → register/login UI → MongoDB Atlas → Redis → JWT blog API).
+          <strong>MongoDB Atlas</strong> (databas <code>JS3-app</code>, collection{" "}
+          <code>Users</code>)
         </li>
         <li>
-          <strong>Not a final thesis:</strong> unlike named{" "}
-          <em>slutprojekt</em> repos; this was a progressive full-stack /
-          microservice exercise.
+          <strong>Redis</strong> för cache av användare och JWT (i ursprungsversionen)
         </li>
-        <li>
-          <strong>Substitute teacher period (~6 weeks):</strong> not recorded in
-          git commit messages; your memory may refer to a wider class
-          situation—the repo history only shows steady weekly coursework commits.
-        </li>
+        <li>Express microservice-mönster → nu Next.js API routes på Netlify</li>
+        <li>JWT, registrering, blogginlägg med skyddade routes</li>
       </ul>
 
-      <h2 className="text-xl font-semibold">Stack</h2>
-      <ul className="list-disc space-y-1 pl-6">
-        <li>Next.js 14 (Pages Router), TypeScript, Tailwind CSS</li>
-        <li>next-themes, JWT, MongoDB Atlas</li>
-        <li>bcrypt password hashing (legacy MD5 still accepted for old accounts)</li>
-        <li>Hosted on Netlify</li>
+      <h2>Kurs &amp; klass</h2>
+      <p>
+        Uppgiften var öppen och krävde mycket eget arbete. Få i klassen fullföljde
+        till ett komplett system utan lärarstöd —{" "}
+        <strong>ungefär tre personer</strong> enligt min minnesbild, varav jag var
+        en. Det passar också tidslinjen okt–nov 2023 med veckovisa versioner i git.
+      </p>
+      <p>
+        Det var <strong>inte</strong> ett slutprojekt (som HTML/JS-slutprojekt) utan
+        den större JS3-uppgiften med microservice + frontend.
+      </p>
+
+      <h2>Stack idag</h2>
+      <ul>
+        <li>Next.js 14, TypeScript, Tailwind CSS, next-themes</li>
+        <li>MongoDB Atlas, JWT, bcrypt</li>
+        <li>Netlify: <code>elli-auth-blog</code></li>
       </ul>
 
       <p>
-        <Link className="text-blue-600 underline dark:text-blue-400" href="/">
-          ← Back to home
-        </Link>
+        <Link href="/">← Tillbaka till startsidan</Link>
       </p>
-    </article>
+    </Card>
   );
 }

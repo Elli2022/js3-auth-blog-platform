@@ -2,7 +2,7 @@ import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import sanitizeHtml from "sanitize-html";
 import { hashPassword, verifyPassword } from "./password";
-import { assertConfig, dbConfig, jwtSecret } from "./config";
+import { assertAuthConfig, assertDbConfig, dbConfig, jwtSecret } from "./config";
 import { getBlogCollection, getUsersCollection } from "./mongodb";
 
 export type RegisterInput = {
@@ -32,7 +32,7 @@ export function publicUser(user: Record<string, unknown> | null) {
 }
 
 export async function registerUser(input: RegisterInput) {
-  assertConfig();
+  assertDbConfig();
 
   const username = sanitize(input.username?.trim() || "");
   const email = sanitize(input.email?.trim() || "");
@@ -71,7 +71,7 @@ export async function registerUser(input: RegisterInput) {
 }
 
 export async function loginUser(username: string, password: string) {
-  assertConfig();
+  assertAuthConfig();
 
   const users = await getUsersCollection();
   const user = await users.findOne({ username });
@@ -96,7 +96,7 @@ export async function findUsers(query: {
   username?: string;
   email?: string;
 }) {
-  assertConfig();
+  assertDbConfig();
   const users = await getUsersCollection();
   const filter: Record<string, string> = {};
 
@@ -112,7 +112,7 @@ export async function createBlogPost(input: {
   content: string;
   author: string;
 }) {
-  assertConfig();
+  assertAuthConfig();
 
   const title = input.title?.trim();
   const content = input.content?.trim();

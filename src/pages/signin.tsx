@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { apiUrl } from "@/lib/api-client";
+import { errorMessageFromApi, parseJsonResponse } from "@/lib/api-response";
+import { Card } from "@/components/ui/Card";
+import { Button, Field, Input } from "@/components/ui/Field";
 
 export default function SignIn() {
   const router = useRouter();
@@ -10,7 +13,7 @@ export default function SignIn() {
     password: "",
   });
   const [error, setError] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -19,6 +22,7 @@ export default function SignIn() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const response = await fetch(apiUrl("/api/login"), {
@@ -27,51 +31,68 @@ export default function SignIn() {
         body: JSON.stringify(credentials),
       });
 
-      const data = await response.json();
+      const { data, parseError } = await parseJsonResponse(response);
 
       if (!response.ok) {
-        setError(data.error || "Sign-in failed.");
+        setError(errorMessageFromApi(data, parseError));
       } else {
-        localStorage.setItem("token", data.token);
-        if (data.userId) localStorage.setItem("userId", data.userId);
-        setIsLoggedIn(true);
+        const token = data?.token as string | undefined;
+        const userId = data?.userId as string | undefined;
+        if (token) localStorage.setItem("token", token);
+        if (userId) localStorage.setItem("userId", userId);
         router.push("/dashboard");
       }
     } catch {
-      setError("Could not reach the server.");
+      setError("Kunde inte nå servern.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="form-card">
-      <h1 className="mb-4 text-2xl font-semibold">Logga in</h1>
-      {error && <p className="error">{error}</p>}
-      {isLoggedIn && <p className="mb-3 text-green-700">Du är nu inloggad!</p>}
-      <form className="form-stack" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          value={credentials.username}
-          onChange={handleChange}
-          placeholder="Användarnamn"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          value={credentials.password}
-          onChange={handleChange}
-          placeholder="Lösenord"
-          required
-        />
-        <button type="submit">Logga in</button>
+    <Card>
+      <h1 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-white">
+        Logga in
+      </h1>
+      <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
+        JWT-inloggning mot MongoDB — som i det ursprungliga microservice-projektet.
+      </p>
+      {error && (
+        <p className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-200">
+          {error}
+        </p>
+      )}
+      <form className="space-y-4" onSubmit={handleSubmit}>
+        <Field label="Användarnamn">
+          <Input
+            type="text"
+            name="username"
+            value={credentials.username}
+            onChange={handleChange}
+            required
+            autoComplete="username"
+          />
+        </Field>
+        <Field label="Lösenord">
+          <Input
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChange}
+            required
+            autoComplete="current-password"
+          />
+        </Field>
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? "Loggar in…" : "Logga in"}
+        </Button>
       </form>
-      <p className="mt-4 text-sm">
+      <p className="mt-4 text-center text-sm text-zinc-600 dark:text-zinc-400">
         Inget konto?{" "}
-        <Link className="underline" href="/register">
+        <Link className="font-medium text-violet-600 underline dark:text-violet-400" href="/register">
           Registrera dig
         </Link>
       </p>
-    </div>
+    </Card>
   );
 }
