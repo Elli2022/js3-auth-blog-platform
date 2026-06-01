@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { apiUrl } from "@/lib/api-client";
@@ -6,21 +6,60 @@ import { errorMessageFromApi, parseJsonResponse } from "@/lib/api-response";
 import { Card } from "@/components/ui/Card";
 import { Button, Field, Input, TextArea } from "@/components/ui/Field";
 
+type BlogPost = {
+  id: string;
+  title: string;
+  content: string;
+  author: string;
+  createdAt: string | null;
+};
+
 export default function Dashboard() {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    author: "",
   });
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingPosts, setLoadingPosts] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem("token"));
+  const loadPosts = useCallback(async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    setLoadingPosts(true);
+    try {
+      const response = await fetch(apiUrl("/api/v1/user/blog"), {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const { data: result, parseError } = await parseJsonResponse(response);
+
+      if (!response.ok) {
+        setError(errorMessageFromApi(result, parseError));
+        return;
+      }
+
+      const list = result?.data;
+      if (Array.isArray(list)) setPosts(list as BlogPost[]);
+    } catch {
+      setError("Kunde inte hämta dina inlägg.");
+    } finally {
+      setLoadingPosts(false);
+    }
   }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUsername = localStorage.getItem("username") || "";
+    setIsLoggedIn(!!token);
+    setUsername(storedUsername);
+    if (token) void loadPosts();
+  }, [loadPosts]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -62,7 +101,8 @@ export default function Dashboard() {
         setError(errorMessageFromApi(result, parseError));
       } else {
         setMessage("Blogginlägget sparades i MongoDB.");
-        setFormData({ title: "", content: "", author: "" });
+        setFormData({ title: "", content: "" });
+        await loadPosts();
       }
     } catch {
       setError("Kunde inte nå servern.");
@@ -74,8 +114,19 @@ export default function Dashboard() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
+    localStorage.removeItem("username");
     setIsLoggedIn(false);
+    setUsername("");
+    setPosts([]);
     router.push("/signin");
+  };
+
+  const formatDate = (iso: string | null) => {
+    if (!iso) return "";
+    return new Date(iso).toLocaleString("sv-SE", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
   };
 
   return (
@@ -86,7 +137,9 @@ export default function Dashboard() {
             Blogg-dashboard
           </h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            Skriv inlägg med JWT-skyddad API-route.
+            {username
+              ? `Inloggad som ${username} — inlägg publiceras under ditt användarnamn.`
+              : "Skriv inlägg med JWT-skyddad API-route."}
           </p>
         </div>
         {isLoggedIn && (
@@ -135,19 +188,52 @@ export default function Dashboard() {
                 required
               />
             </Field>
-            <Field label="Författare">
-              <Input
-                type="text"
-                name="author"
-                value={formData.author}
-                onChange={handleChange}
-                required
-              />
-            </Field>
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Sparar…" : "Publicera inlägg"}
             </Button>
           </form>
+
+          <section className="mt-10 border-t border-zinc-200 pt-8 dark:border-zinc-700">
+            <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-white">
+              Dina inlägg
+            </h2>
+            {loadingPosts ? (
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">Laddar inlägg…</p>
+            ) : posts.length === 0 ? (
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                Inga inlägg ännu. Publicera ditt första ovan.
+              </p>
+            ) : (
+              <ul className="space-y-4">
+                {posts.map((post) => (
+                  <li
+                    key={post.id}
+                    className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-900/50"
+                  >
+                    <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+                      <h3 className="font-semibold text-zinc-900 dark:text-white">
+                        {post.title}
+                      </h3>
+                      {post.createdAt && (
+                        <time
+                          className="text-xs text-zinc-500 dark:text-zinc-400"
+                          dateTime={post.createdAt}
+                        >
+                          {formatDate(post.createdAt)}
+                        </time>
+                      )}
+                    </div>
+                    <p className="mb-2 whitespace-pre-wrap text-sm text-zinc-700 dark:text-zinc-300">
+                      {post.content}
+                    </p>
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                      Författare: {post.author}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
         </>
       )}
     </Card>

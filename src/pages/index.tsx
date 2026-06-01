@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StatusPills, homePills } from "@/components/StatusPills";
 import { liveDemoUrl, siteName } from "@/lib/site";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Field";
@@ -17,6 +18,7 @@ export default function Home() {
           Fullstack med Next.js, JWT, MongoDB Atlas och Redis — mitt första större
           projekt där vi satte upp hela systemet själva.
         </p>
+        <StatusPills items={[...homePills]} className="mt-5 justify-center" />
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link href="/register">
             <Button type="button">Registrera</Button>

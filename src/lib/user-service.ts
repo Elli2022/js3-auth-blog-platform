@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 import sanitizeHtml from "sanitize-html";
 import { hashPassword, verifyPassword } from "./password";
 import { assertAuthConfig, assertDbConfig, dbConfig, jwtSecret } from "./config";
@@ -89,7 +90,11 @@ export async function loginUser(username: string, password: string) {
     expiresIn: "1h",
   });
 
-  return { token, userId: user._id.toString() };
+  return {
+    token,
+    userId: user._id.toString(),
+    username: String(user.username),
+  };
 }
 
 export async function findUsers(query: {
@@ -107,28 +112,54 @@ export async function findUsers(query: {
   return results.map((u) => publicUser(u as Record<string, unknown>));
 }
 
+async function getUsernameForUserId(userId: string) {
+  const users = await getUsersCollection();
+  const user = await users.findOne({ _id: new ObjectId(userId) });
+  if (!user?.username) throw new Error("User not found.");
+  return String(user.username);
+}
+
 export async function createBlogPost(input: {
   title: string;
   content: string;
-  author: string;
+  userId: string;
 }) {
   assertAuthConfig();
 
   const title = input.title?.trim();
   const content = input.content?.trim();
-  const author = input.author?.trim();
 
   if (!title) throw new Error("Title is required.");
   if (!content) throw new Error("Content is required.");
-  if (!author) throw new Error("Author is required.");
 
+  const author = await getUsernameForUserId(input.userId);
   const blog = await getBlogCollection();
   const result = await blog.insertOne({
     title,
     content,
     author,
+    userId: input.userId,
     createdAt: new Date(),
   });
 
   return { insertedId: result.insertedId, dbName: dbConfig.dbName };
+}
+
+export async function getBlogPostsForUser(userId: string) {
+  assertAuthConfig();
+
+  const author = await getUsernameForUserId(userId);
+  const blog = await getBlogCollection();
+  const posts = await blog
+    .find({ $or: [{ userId }, { author }] })
+    .sort({ createdAt: -1 })
+    .toArray();
+
+  return posts.map((post) => ({
+    id: post._id.toString(),
+    title: String(post.title ?? ""),
+    content: String(post.content ?? ""),
+    author: String(post.author ?? ""),
+    createdAt: post.createdAt instanceof Date ? post.createdAt.toISOString() : null,
+  }));
 }

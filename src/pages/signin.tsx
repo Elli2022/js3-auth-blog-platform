@@ -38,8 +38,10 @@ export default function SignIn() {
       } else {
         const token = data?.token as string | undefined;
         const userId = data?.userId as string | undefined;
+        const username = data?.username as string | undefined;
         if (token) localStorage.setItem("token", token);
         if (userId) localStorage.setItem("userId", userId);
+        if (username) localStorage.setItem("username", username);
         router.push("/dashboard");
       }
     } catch {

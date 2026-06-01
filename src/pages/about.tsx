@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { StatusPills, aboutPills } from "@/components/StatusPills";
 import { githubRepoUrl, liveDemoUrl, siteName } from "@/lib/site";
 import { Card } from "@/components/ui/Card";
 
@@ -15,6 +16,8 @@ export default function About() {
         ihop till <a href={githubRepoUrl}>js3-auth-blog-platform</a>.
       </p>
 
+      <StatusPills items={[...aboutPills]} className="not-prose my-6" />
+
       <h2>Live-demo</h2>
       <p>
         <a href={liveDemoUrl} target="_blank" rel="noopener noreferrer">
@@ -25,28 +28,56 @@ export default function About() {
       <h2>MongoDB Atlas (ursprung vs idag)</h2>
       <p>
         <strong>Det här projektet använde inte receptbloggen.</strong> Klustret{" "}
-        <code>receptBloggCluster</code> (<code>receptbloggcluster.hree1g3</code>)
-        tillhör ett <em>annat</em> projekt (receptbok med recept och bilder). För
-        JS3-uppgiften var det i stället:
+        <code>receptBloggCluster</code> tillhör ett <em>annat</em> Atlas-projekt
+        (receptbok). JS3-auth-bloggen har sitt eget Atlas-projekt och kluster.
       </p>
+
+      <h3>2023 (ursprungligt)</h3>
       <ul>
         <li>
-          <strong>Kluster (2023):</strong> <code>cluster2.6uupj5n.mongodb.net</code>{" "}
-          (Atlas-projekt med kluster som hette <strong>Cluster2</strong>)
+          <strong>Kluster:</strong> <code>cluster2.6uupj5n.mongodb.net</code>{" "}
+          (hette <strong>Cluster2</strong> — finns inte kvar)
         </li>
         <li>
-          <strong>Databas:</strong> <code>JS3-app</code>
+          <strong>Databas / collection:</strong> <code>JS3-app</code> /{" "}
+          <code>Users</code>
+        </li>
+      </ul>
+
+      <h3>Idag (återupptaget juni 2026)</h3>
+      <ul>
+        <li>
+          <strong>Atlas-projekt:</strong> <code>js3-auth-blog</code> (tidigare
+          &quot;Project 0&quot;)
         </li>
         <li>
-          <strong>Collection:</strong> <code>Users</code>
+          <strong>Kluster:</strong> <code>JS3-app</code> på{" "}
+          <code>js3-app.72twkv6.mongodb.net</code>
+        </li>
+        <li>
+          <strong>Databasanvändare (app):</strong> <code>js3-auth-app</code>
+        </li>
+        <li>
+          <strong>Databas / collection:</strong> <code>JS3-app</code> /{" "}
+          <code>Users</code> (samma namn som 2023)
+        </li>
+        <li>
+          <strong>Netlify:</strong> anslutningssträngen ligger i{" "}
+          <code>MONGODB_URI</code> (Site settings → Environment variables)
         </li>
       </ul>
       <p>
-        Det gamla <code>cluster2</code>-klustret finns inte kvar på Atlas längre.
-        För att få live-sajten att fungera igen pekade vi tillfälligt Netlify mot
-        ett annat aktivt kluster, men med samma databasnamn{" "}
-        <code>JS3-app</code> och collection <code>Users</code> — alltså ny tom
-        databas i molnet, inte receptbloggens data.
+        Under en kort period pekade live-sajten tillfälligt mot{" "}
+        <code>receptBloggCluster</code> eftersom det gamla klustret var borta.
+        Sedan juni 2026 kör vi igen mot det riktiga JS3-klustret ovan.
+      </p>
+
+      <h3>Lösenord &amp; åtkomst</h3>
+      <p>
+        Atlas-lösenordet för <code>js3-auth-app</code> sparas i din{" "}
+        <strong>lösenordshanterare</strong> (kopiera från Netlify: Site
+        configuration → Environment variables → <code>MONGODB_URI</code>, eller
+        från Atlas → Database Access). Dela det aldrig i git eller i chatten.
       </p>
 
       <h2>Postman</h2>
@@ -102,7 +133,15 @@ export default function About() {
         <li>Next.js 14, TypeScript, Tailwind CSS, next-themes</li>
         <li>MongoDB Atlas, JWT, bcrypt</li>
         <li>
-          Netlify:{" "}
+          Blogg-dashboard: titel + innehåll, författare = inloggat användarnamn,
+          lista under &quot;Dina inlägg&quot;
+        </li>
+        <li>
+          Netlify + GitHub Actions: varje push till <code>master</code> deployar
+          automatiskt
+        </li>
+        <li>
+          Live:{" "}
           <a href={liveDemoUrl}>{liveDemoUrl.replace("https://", "")}</a>
         </li>
       </ul>

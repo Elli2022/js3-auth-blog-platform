@@ -16,8 +16,11 @@ export default async function handler(
   }
 
   try {
-    const { token, userId } = await loginUser(String(username), String(password));
-    return res.status(200).json({ token, userId });
+    const { token, userId, username: loggedInUsername } = await loginUser(
+      String(username),
+      String(password)
+    );
+    return res.status(200).json({ token, userId, username: loggedInUsername });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Login failed";
     return res.status(400).json({ error: message });
