@@ -128,6 +128,25 @@ export default function About() {
         JS3-uppgiften.
       </p>
 
+      <h2>Relaterade GitHub-repos</h2>
+      <ul>
+        <li>
+          <a
+            href="https://github.com/Elli2022/authentication-service"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            authentication-service
+          </a>{" "}
+          — separat arkiv av <code>authentication-ms</code> (Express-övning okt 2023).
+          <strong> Inte</strong> samma kodbas som detta projekt; behöver inte slås ihop.
+        </li>
+        <li>
+          <a href={githubRepoUrl}>js3-auth-blog-platform</a> — det här repot (levande
+          version med live-demo).
+        </li>
+      </ul>
+
       <h2>Stack idag</h2>
       <ul>
         <li>Next.js 14, TypeScript, Tailwind CSS, next-themes</li>

@@ -1,5 +1,6 @@
 # js3-auth-blog-platform
 
+[![Deploy to Netlify](https://github.com/Elli2022/js3-auth-blog-platform/actions/workflows/netlify-deploy.yml/badge.svg)](https://github.com/Elli2022/js3-auth-blog-platform/actions/workflows/netlify-deploy.yml)
 [![Live demo](https://img.shields.io/badge/Live%20demo-Netlify-2563eb?style=for-the-badge&logo=netlify&logoColor=white)](https://javascript-course-3-auth-blog.netlify.app)
 ![FE22](https://img.shields.io/badge/Program-FE22-2563eb?style=for-the-badge)
 ![JavaScript 3](https://img.shields.io/badge/Course-JavaScript%203-2563eb?style=for-the-badge)
@@ -23,6 +24,18 @@
 </p>
 
 This was my **first larger project** where I learned to set up the whole system myself: Next.js UI, API, **MongoDB Atlas**, **Redis** caching (2023 microservice), and JWT. Only a few classmates finished a complete version without constant teacher help (~3, including me).
+
+## Project status
+
+**Portfolio-ready** for the JS3 major assignment: live demo, docs, screenshots, CI deploy, and course context. It is not aimed at production SaaS scale (no admin panel, email verification, or rate limiting) — that would be scope creep beyond the original assignment.
+
+| Area | Status |
+|------|--------|
+| Auth (register / login / JWT) | Done |
+| Blog dashboard + post list | Done |
+| MongoDB Atlas + Netlify | Done |
+| Auto-deploy on `git push` | Done |
+| README, About, GitHub topics | Done |
 
 ## In-app highlights
 
@@ -127,6 +140,13 @@ Store the Atlas password in a password manager: copy `MONGODB_URI` from [Netlify
 | `POST` | `/api/login` | Sign in → `{ token, userId, username }` |
 | `GET` | `/api/v1/user/blog` | List your posts (Bearer JWT) |
 | `POST` | `/api/v1/user/blog` | Create post (Bearer JWT; author = logged-in username) |
+
+## Related repositories
+
+| Repo | Role |
+|------|------|
+| [js3-auth-blog-platform](https://github.com/Elli2022/js3-auth-blog-platform) | **This repo** — consolidated live app |
+| [authentication-service](https://github.com/Elli2022/authentication-service) | Separate archive of `authentication-ms` (Oct 2023 Express exercise) — **not** merged here |
 
 ## Legacy branches
 

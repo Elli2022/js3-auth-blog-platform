@@ -15,8 +15,9 @@ export default function Home() {
           {siteName}
         </h1>
         <p className="mx-auto mt-3 max-w-md text-zinc-600 dark:text-zinc-400">
-          Fullstack med Next.js, JWT, MongoDB Atlas och Redis — mitt första större
-          projekt där vi satte upp hela systemet själva.
+          Fullstack med Next.js, JWT och MongoDB Atlas — mitt första större projekt
+          där vi satte upp hela systemet själva. Ursprungligen även Redis-cache i
+          microservice-versionen (2023).
         </p>
         <StatusPills items={[...homePills]} className="mt-5 justify-center" />
         <div className="mt-6 flex flex-wrap justify-center gap-3">
