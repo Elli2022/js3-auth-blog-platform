@@ -5,6 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  try {
   if (req.method === "POST") {
     try {
       const saved = await registerUser(req.body);
@@ -41,4 +42,13 @@ export default async function handler(
   }
 
   return res.status(405).json({ error: "Method not allowed" });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Server error";
+    return res.status(500).json({
+      err: 1,
+      data: message.includes("ENOTFOUND")
+        ? "MongoDB Atlas är inte tillgänglig. Skapa ett nytt cluster på cloud.mongodb.com och uppdatera MONGODB_URI på Netlify."
+        : message,
+    });
+  }
 }
