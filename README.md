@@ -1,6 +1,6 @@
 # js3-auth-blog-platform
 
-[![Live demo](https://img.shields.io/badge/demo-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://elli-auth-blog.netlify.app)
+[![Live demo](https://img.shields.io/badge/demo-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://javascript-course-3-auth-blog.netlify.app)
 
 **JavaScript 3 major assignment (FE22, autumn 2023)** — full-stack auth & blog app.  
 Originally built as many small repos (`users-ms-*`, `My-Next.js-Project`); consolidated here.
@@ -9,12 +9,12 @@ This was my **first larger project** where I learned to set up the whole system 
 
 ## Live demo
 
-**https://elli-auth-blog.netlify.app**
+**https://javascript-course-3-auth-blog.netlify.app**
 
 | Page | URL |
 |------|-----|
-| About (course background + live link) | [/about](https://elli-auth-blog.netlify.app/about) |
-| Health check | [/api/health](https://elli-auth-blog.netlify.app/api/health) |
+| About (course background + live link) | [/about](https://javascript-course-3-auth-blog.netlify.app/about) |
+| Health check | [/api/health](https://javascript-course-3-auth-blog.netlify.app/api/health) |
 
 ## Screenshots
 
@@ -56,7 +56,7 @@ npm run dev
 | `JWT_SECRET` | Yes |
 | `MONGODB_DB_NAME` | `JS3-app` |
 | `MONGODB_COLLECTION` | `Users` |
-| `NEXT_PUBLIC_SITE_URL` | `https://elli-auth-blog.netlify.app` |
+| `NEXT_PUBLIC_SITE_URL` | `https://javascript-course-3-auth-blog.netlify.app` |
 
 If registration fails, open `/api/health` — it reports whether MongoDB is reachable.
 
