@@ -26,7 +26,7 @@ jobs:
         run: npm ci
 
       - name: Deploy production
-        uses: netlify/actions/cli@v5.0.0
+        uses: netlify/actions/cli@v4.0.2
         with:
           args: deploy --prod --build
         env:
