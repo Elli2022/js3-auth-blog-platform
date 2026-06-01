@@ -1,30 +1,21 @@
 {
-	"ts-node": {
-    "transpileOnly": true
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-	"compilerOptions": {
-		"allowJs": true,
-		"target": "es6",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"inlineSourceMap": true,
-		"outDir": "build",
-		"rootDir": "src",
-		"typeRoots": [
-			"./node_modules/@types",
-			"./typings"
-		],
-		"types": ["node", "mocha"],
-		"skipLibCheck": true
-	},
-	"exclude": [
-		"nodemon.json",
-		"node_modules",
-		"build",
-		"src/app/public",
-		"setup-env.js",
-		"src/app/**/*.json",
-		"coverage",
-		"src/test"
-	]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
