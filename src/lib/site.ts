@@ -1,8 +1,8 @@
-export const siteName = "JS3 Auth & Blog";
+export const siteName = "Auth Blog Platform";
 
 export const liveDemoUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  "https://javascript-course-3-auth-blog.netlify.app";
+  "https://auth-blog-platform.netlify.app";
 
 export const githubRepoUrl =
-  "https://github.com/Elli2022/js3-auth-blog-platform";
+  "https://github.com/Elli2022/auth-blog-platform";

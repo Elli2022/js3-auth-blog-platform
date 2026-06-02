@@ -14,13 +14,13 @@ export default function RootLayout({
         <title>{siteName}</title>
         <meta
           name="description"
-          content="JS3 (FE22) större uppgift: Next.js, JWT, MongoDB Atlas och skyddad blogg-dashboard. Live-demo på Netlify."
+          content="Full-stack auth and blog platform with Next.js, JWT, MongoDB Atlas, and a protected dashboard. Live on Netlify."
         />
         <meta property="og:title" content={siteName} />
         <meta property="og:url" content={liveDemoUrl} />
         <meta
           property="og:description"
-          content="Fullstack auth & blog — portfolio-projekt från JavaScript 3, hösten 2023."
+          content="Register, sign in, and manage blog posts with JWT authentication."
         />
       </Head>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-600/20 via-zinc-950 to-zinc-950" />

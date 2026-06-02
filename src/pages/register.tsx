@@ -40,7 +40,7 @@ export default function Register() {
       }
     } catch {
       setError(
-        "Kunde inte nå servern. Kontrollera nätverk eller att sajten är deployad korrekt."
+        "Could not reach the server. Check your network or deployment configuration."
       );
     } finally {
       setLoading(false);
@@ -55,23 +55,22 @@ export default function Register() {
             ✓
           </div>
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
-            Välkommen, {formData.username}!
+            Welcome, {formData.username}!
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            Ditt konto är skapat. Logga in för att skriva blogginlägg.
+            Your account was created. Sign in to start writing blog posts.
           </p>
           <Link href="/signin">
-            <Button type="button">Logga in</Button>
+            <Button type="button">Sign in</Button>
           </Link>
         </div>
       ) : (
         <>
           <h1 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-white">
-            Skapa konto
+            Create account
           </h1>
           <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-            Registrering för JS3 Auth &amp; Blog — samma flöde som i kursprojektet
-            2023.
+            Register with username, email, and password. Data is stored in MongoDB Atlas.
           </p>
           {error && (
             <p className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-200">
@@ -79,7 +78,7 @@ export default function Register() {
             </p>
           )}
           <form className="space-y-4" onSubmit={handleRegister}>
-            <Field label="Användarnamn">
+            <Field label="Username">
               <Input
                 type="text"
                 name="username"
@@ -90,7 +89,7 @@ export default function Register() {
                 autoComplete="username"
               />
             </Field>
-            <Field label="E-post">
+            <Field label="Email">
               <Input
                 type="email"
                 name="email"
@@ -101,25 +100,25 @@ export default function Register() {
                 autoComplete="email"
               />
             </Field>
-            <Field label="Lösenord">
+            <Field label="Password">
               <Input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Minst 4 tecken"
+                placeholder="At least 4 characters"
                 required
                 autoComplete="new-password"
               />
             </Field>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Skapar konto…" : "Registrera"}
+              {loading ? "Creating account…" : "Register"}
             </Button>
           </form>
           <p className="mt-4 text-center text-sm text-zinc-600 dark:text-zinc-400">
-            Har du redan konto?{" "}
+            Already have an account?{" "}
             <Link className="font-medium text-violet-600 underline dark:text-violet-400" href="/signin">
-              Logga in
+              Sign in
             </Link>
           </p>
         </>

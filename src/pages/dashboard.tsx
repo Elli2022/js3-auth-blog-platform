@@ -47,7 +47,7 @@ export default function Dashboard() {
       const list = result?.data;
       if (Array.isArray(list)) setPosts(list as BlogPost[]);
     } catch {
-      setError("Kunde inte hämta dina inlägg.");
+      setError("Could not load your posts.");
     } finally {
       setLoadingPosts(false);
     }
@@ -74,13 +74,13 @@ export default function Dashboard() {
     setError("");
 
     if (!isLoggedIn) {
-      setError("Du måste logga in för att skriva ett blogginlägg.");
+      setError("You must sign in to publish a blog post.");
       return;
     }
 
     const token = localStorage.getItem("token");
     if (!token) {
-      setError("Ingen token hittades — logga in igen.");
+      setError("No token found — please sign in again.");
       return;
     }
 
@@ -100,12 +100,12 @@ export default function Dashboard() {
       if (!response.ok) {
         setError(errorMessageFromApi(result, parseError));
       } else {
-        setMessage("Blogginlägget sparades i MongoDB.");
+        setMessage("Blog post saved to MongoDB.");
         setFormData({ title: "", content: "" });
         await loadPosts();
       }
     } catch {
-      setError("Kunde inte nå servern.");
+      setError("Could not reach the server.");
     } finally {
       setLoading(false);
     }
@@ -123,7 +123,7 @@ export default function Dashboard() {
 
   const formatDate = (iso: string | null) => {
     if (!iso) return "";
-    return new Date(iso).toLocaleString("sv-SE", {
+    return new Date(iso).toLocaleString("en-US", {
       dateStyle: "medium",
       timeStyle: "short",
     });
@@ -134,28 +134,28 @@ export default function Dashboard() {
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
-            Blogg-dashboard
+            Blog dashboard
           </h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
             {username
-              ? `Inloggad som ${username} — inlägg publiceras under ditt användarnamn.`
-              : "Skriv inlägg med JWT-skyddad API-route."}
+              ? `Signed in as ${username} — posts are published under your username.`
+              : "Create posts via JWT-protected API routes."}
           </p>
         </div>
         {isLoggedIn && (
           <Button type="button" variant="secondary" onClick={handleLogout}>
-            Logga ut
+            Sign out
           </Button>
         )}
       </div>
 
       {!isLoggedIn ? (
         <p className="rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:bg-amber-950/40 dark:text-amber-100">
-          Du måste{" "}
+          You must{" "}
           <Link className="font-semibold underline" href="/signin">
-            logga in
+            sign in
           </Link>{" "}
-          först.
+          first.
         </p>
       ) : (
         <>
@@ -170,7 +170,7 @@ export default function Dashboard() {
             </p>
           )}
           <form className="space-y-4" onSubmit={handleBlogPost}>
-            <Field label="Titel">
+            <Field label="Title">
               <Input
                 type="text"
                 name="title"
@@ -179,7 +179,7 @@ export default function Dashboard() {
                 required
               />
             </Field>
-            <Field label="Innehåll">
+            <Field label="Content">
               <TextArea
                 name="content"
                 value={formData.content}
@@ -189,19 +189,19 @@ export default function Dashboard() {
               />
             </Field>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Sparar…" : "Publicera inlägg"}
+              {loading ? "Saving…" : "Publish post"}
             </Button>
           </form>
 
           <section className="mt-10 border-t border-zinc-200 pt-8 dark:border-zinc-700">
             <h2 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-white">
-              Dina inlägg
+              Your posts
             </h2>
             {loadingPosts ? (
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">Laddar inlägg…</p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">Loading posts…</p>
             ) : posts.length === 0 ? (
               <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Inga inlägg ännu. Publicera ditt första ovan.
+                No posts yet. Publish your first one above.
               </p>
             ) : (
               <ul className="space-y-4">
@@ -227,7 +227,7 @@ export default function Dashboard() {
                       {post.content}
                     </p>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                      Författare: {post.author}
+                      Author: {post.author}
                     </p>
                   </li>
                 ))}

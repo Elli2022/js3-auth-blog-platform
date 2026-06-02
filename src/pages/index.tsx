@@ -9,24 +9,23 @@ export default function Home() {
     <div className="space-y-6">
       <Card className="text-center">
         <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-violet-500">
-          FE22 · JavaScript 3 · Större uppgift
+          Full-stack authentication &amp; blog
         </p>
         <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">
           {siteName}
         </h1>
         <p className="mx-auto mt-3 max-w-md text-zinc-600 dark:text-zinc-400">
-          Fullstack med Next.js, JWT och MongoDB Atlas — mitt första större projekt
-          där vi satte upp hela systemet själva. Ursprungligen även Redis-cache i
-          microservice-versionen (2023).
+          Register, sign in with JWT, and manage your own blog posts. Built with
+          Next.js, MongoDB Atlas, and deployed on Netlify.
         </p>
         <StatusPills items={[...homePills]} className="mt-5 justify-center" />
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link href="/register">
-            <Button type="button">Registrera</Button>
+            <Button type="button">Create account</Button>
           </Link>
           <Link href="/signin">
             <Button type="button" variant="secondary">
-              Logga in
+              Sign in
             </Button>
           </Link>
           <Link href="/dashboard">
@@ -37,11 +36,11 @@ export default function Home() {
         </div>
         <p className="mt-6 text-sm text-zinc-500">
           <Link className="underline hover:text-violet-600" href="/about">
-            Om projektet &amp; kursen
+            About this project
           </Link>
           {" · "}
           <a className="underline hover:text-violet-600" href={liveDemoUrl}>
-            Live på Netlify
+            Live demo
           </a>
         </p>
       </Card>

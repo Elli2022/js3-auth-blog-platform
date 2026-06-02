@@ -45,7 +45,7 @@ export default function SignIn() {
         router.push("/dashboard");
       }
     } catch {
-      setError("Kunde inte nå servern.");
+      setError("Could not reach the server.");
     } finally {
       setLoading(false);
     }
@@ -54,10 +54,10 @@ export default function SignIn() {
   return (
     <Card>
       <h1 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-white">
-        Logga in
+        Sign in
       </h1>
       <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-        JWT-inloggning mot MongoDB — som i det ursprungliga microservice-projektet.
+        JWT authentication against MongoDB Atlas. Successful login redirects to your dashboard.
       </p>
       {error && (
         <p className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-200">
@@ -65,7 +65,7 @@ export default function SignIn() {
         </p>
       )}
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <Field label="Användarnamn">
+        <Field label="Username">
           <Input
             type="text"
             name="username"
@@ -75,7 +75,7 @@ export default function SignIn() {
             autoComplete="username"
           />
         </Field>
-        <Field label="Lösenord">
+        <Field label="Password">
           <Input
             type="password"
             name="password"
@@ -86,13 +86,13 @@ export default function SignIn() {
           />
         </Field>
         <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Loggar in…" : "Logga in"}
+          {loading ? "Signing in…" : "Sign in"}
         </Button>
       </form>
       <p className="mt-4 text-center text-sm text-zinc-600 dark:text-zinc-400">
-        Inget konto?{" "}
+        No account yet?{" "}
         <Link className="font-medium text-violet-600 underline dark:text-violet-400" href="/register">
-          Registrera dig
+          Register
         </Link>
       </p>
     </Card>

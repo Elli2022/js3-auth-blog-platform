@@ -1,56 +1,50 @@
-# js3-auth-blog-platform
+# Auth Blog Platform
 
-[![Deploy to Netlify](https://github.com/Elli2022/js3-auth-blog-platform/actions/workflows/netlify-deploy.yml/badge.svg)](https://github.com/Elli2022/js3-auth-blog-platform/actions/workflows/netlify-deploy.yml)
-[![Live demo](https://img.shields.io/badge/Live%20demo-Netlify-2563eb?style=for-the-badge&logo=netlify&logoColor=white)](https://javascript-course-3-auth-blog.netlify.app)
-![FE22](https://img.shields.io/badge/Program-FE22-2563eb?style=for-the-badge)
-![JavaScript 3](https://img.shields.io/badge/Course-JavaScript%203-2563eb?style=for-the-badge)
-![Major assignment](https://img.shields.io/badge/Assignment-St%C3%B6rre%20uppgift-2563eb?style=for-the-badge)
+[![Deploy to Netlify](https://github.com/Elli2022/auth-blog-platform/actions/workflows/netlify-deploy.yml/badge.svg)](https://github.com/Elli2022/auth-blog-platform/actions/workflows/netlify-deploy.yml)
+[![Live demo](https://img.shields.io/badge/Live%20demo-Netlify-2563eb?style=for-the-badge&logo=netlify&logoColor=white)](https://auth-blog-platform.netlify.app)
 
 [![Next.js](https://img.shields.io/badge/Next.js-14-2563eb?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-2563eb?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![MongoDB](https://img.shields.io/badge/Database-MongoDB%20Atlas-2563eb?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
 [![JWT](https://img.shields.io/badge/Auth-JWT-2563eb?style=for-the-badge)](https://jwt.io/)
 [![Tailwind](https://img.shields.io/badge/Styling-Tailwind%20CSS-2563eb?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Blog](https://img.shields.io/badge/Feature-Protected%20blog-2563eb?style=for-the-badge)](https://javascript-course-3-auth-blog.netlify.app/dashboard)
-[![CI](https://img.shields.io/badge/Deploy-GitHub%20Actions-2563eb?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Elli2022/js3-auth-blog-platform/actions)
+[![CI](https://img.shields.io/badge/Deploy-GitHub%20Actions-2563eb?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/Elli2022/auth-blog-platform/actions)
 
 <p align="center">
-  <strong>JavaScript 3 major assignment (FE22, autumn 2023)</strong> — full-stack auth &amp; blog app.<br>
-  Originally many small repos (<code>users-ms-*</code>, <code>My-Next.js-Project</code>); consolidated here.
+  <strong>Full-stack authentication and blog platform</strong><br>
+  Register, sign in with JWT, and manage personal blog posts from a protected dashboard.
 </p>
 
 <p align="center">
-  <strong><a href="https://javascript-course-3-auth-blog.netlify.app">https://javascript-course-3-auth-blog.netlify.app</a></strong>
+  <strong><a href="https://auth-blog-platform.netlify.app">https://auth-blog-platform.netlify.app</a></strong>
 </p>
 
-This was my **first larger project** where I learned to set up the whole system myself: Next.js UI, API, **MongoDB Atlas**, **Redis** caching (2023 microservice), and JWT. Only a few classmates finished a complete version without constant teacher help (~3, including me).
+## Overview
 
-## Project status
+A production-style portfolio project built with **Next.js 14**, **MongoDB Atlas**, and **JWT authentication**. Users can create an account, sign in, and publish blog posts stored in the cloud. API routes run as Netlify serverless functions; the frontend uses TypeScript and Tailwind CSS with a dark/light theme.
 
-**Portfolio-ready** for the JS3 major assignment: live demo, docs, screenshots, CI deploy, and course context. It is not aimed at production SaaS scale (no admin panel, email verification, or rate limiting) — that would be scope creep beyond the original assignment.
+This repo consolidates earlier microservice experiments into a single maintainable codebase.
 
-| Area | Status |
-|------|--------|
-| Auth (register / login / JWT) | Done |
-| Blog dashboard + post list | Done |
-| MongoDB Atlas + Netlify | Done |
-| Auto-deploy on `git push` | Done |
-| README, About, GitHub topics | Done |
+## Features
 
-## In-app highlights
-
-Blue status pills on the home and about pages mirror the stack:
-
-`FE22` · `JavaScript 3` · `Större uppgift` · `Next.js 14` · `MongoDB Atlas` · `JWT` · `Netlify`
+| Feature | Description |
+|---------|-------------|
+| User registration | Username, email, and bcrypt-hashed password stored in MongoDB |
+| JWT sign-in | Bearer tokens for authenticated API access |
+| Blog dashboard | Create and list posts scoped to the signed-in user |
+| Health check | `/api/health` reports database connectivity |
+| CI/CD | GitHub Actions deploys to Netlify on push to `master` |
 
 ## Live demo
 
 | Page | URL |
 |------|-----|
-| Home | [/](https://javascript-course-3-auth-blog.netlify.app/) |
-| Dashboard (blog) | [/dashboard](https://javascript-course-3-auth-blog.netlify.app/dashboard) |
-| About (course + Atlas history) | [/about](https://javascript-course-3-auth-blog.netlify.app/about) |
-| Health check | [/api/health](https://javascript-course-3-auth-blog.netlify.app/api/health) |
+| Home | [/](https://auth-blog-platform.netlify.app/) |
+| Register | [/register](https://auth-blog-platform.netlify.app/register) |
+| Sign in | [/signin](https://auth-blog-platform.netlify.app/signin) |
+| Dashboard | [/dashboard](https://auth-blog-platform.netlify.app/dashboard) |
+| About | [/about](https://auth-blog-platform.netlify.app/about) |
+| Health | [/api/health](https://auth-blog-platform.netlify.app/api/health) |
 
 ## Screenshots
 
@@ -62,96 +56,55 @@ Blue status pills on the home and about pages mirror the stack:
 |-----------|-------|
 | ![Dashboard](./screenshots/dashboard.png) | ![About](./screenshots/about.png) |
 
-## Course context
+## Tech stack
 
-| | |
-|--|--|
-| **Course** | JavaScript 3 (FE22) |
-| **Type** | **Major assignment** (not `slutprojekt`, not JS1/JS2 mini project) |
-| **Period** | Oct–Nov 2023 |
-| **Original Atlas cluster (2023)** | `cluster2.6uupj5n.mongodb.net` (removed) |
-| **Current Atlas project** | `js3-auth-blog` (renamed from Project 0, June 2026) |
-| **Current cluster** | `JS3-app` → `js3-app.72twkv6.mongodb.net` |
-| **DB / collections** | `JS3-app` / `Users`, `blogPosts` |
-| **App DB user** | `js3-auth-app` (credentials in Netlify `MONGODB_URI`) |
-| **Not the same as** | `receptBloggCluster` — separate recipe-book project |
-| **Also used (2023)** | Postman (API + IP access testing), Redis (user + JWT cache) |
+- **Frontend:** Next.js 14 (Pages Router), React, TypeScript, Tailwind CSS
+- **Backend:** Next.js API routes (`/api/login`, `/api/v1/user`, `/api/v1/user/blog`)
+- **Database:** MongoDB Atlas
+- **Auth:** JWT + bcrypt (legacy MD5 passwords still accepted for older accounts)
+- **Hosting:** Netlify with `@netlify/plugin-nextjs`
 
-### Atlas databases in the cluster
-
-Only **`JS3-app`** is for this app. **`admin`** and **`local`** are created automatically by MongoDB — ignore them.
-
-## Features
-
-- Dark / light theme
-- Registration, JWT sign-in, protected blog posts
-- Dashboard lists your posts; author is your **username** (no manual author field)
-- bcrypt passwords (legacy MD5 still accepted for old accounts)
-- Netlify deployment with Next.js runtime
-- **Auto-deploy** on push to `master` via GitHub Actions
-
-## Automatic deployment
-
-Every push to **`master`** on GitHub runs [`.github/workflows/netlify-deploy.yml`](.github/workflows/netlify-deploy.yml) and deploys to production with `netlify deploy --prod --build` (Next.js plugin included).
-
-Required repository secrets (already configured if CI is green):
-
-| Secret | Value |
-|--------|--------|
-| `NETLIFY_AUTH_TOKEN` | [Personal access token](https://app.netlify.com/user/applications#personal-access-tokens) |
-| `NETLIFY_SITE_ID` | `b61b8c26-58ed-45b1-952e-216d9a0c1786` |
-
-Check runs: [GitHub Actions](https://github.com/Elli2022/js3-auth-blog-platform/actions).
-
-## Local development (optional)
-
-You do **not** need your computer running for the public Netlify site. Local dev is only if you want to change code:
+## Local development
 
 ```bash
+git clone https://github.com/Elli2022/auth-blog-platform.git
+cd auth-blog-platform
+npm ci
 cp .env.example .env.local
-# MONGODB_URI → your Atlas connection string
-# JWT_SECRET, MONGODB_DB_NAME=JS3-app, MONGODB_COLLECTION=Users
-npm install
+# Fill in MONGODB_URI, JWT_SECRET, and optional NEXT_PUBLIC_SITE_URL
 npm run dev
 ```
 
-The app runs on `localhost:3000`; MongoDB stays in Atlas (cloud). In 2023, **Postman** was used to hit the API (e.g. on port 3013) and to confirm Atlas **IP Access List** allowed the current machine.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Netlify environment variables
+### Environment variables
 
-| Variable | Required |
-|----------|----------|
-| `MONGODB_URI` | Yes (Atlas connection string) |
-| `JWT_SECRET` | Yes |
-| `MONGODB_DB_NAME` | `JS3-app` |
-| `MONGODB_COLLECTION` | `Users` |
-| `NEXT_PUBLIC_SITE_URL` | `https://javascript-course-3-auth-blog.netlify.app` |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `MONGODB_URI` | Yes | MongoDB Atlas connection string |
+| `JWT_SECRET` | Yes | Secret for signing JWTs |
+| `MONGODB_DB_NAME` | No | Database name (default: `JS3-app`) |
+| `MONGODB_COLLECTION` | No | Users collection (default: `Users`) |
+| `NEXT_PUBLIC_SITE_URL` | No | Public site URL for metadata and API client |
 
-If registration fails, open `/api/health` — it reports whether MongoDB is reachable.
+## Project structure
 
-Store the Atlas password in a password manager: copy `MONGODB_URI` from [Netlify environment variables](https://app.netlify.com/sites/javascript-course-3-auth-blog/configuration/env) (user `js3-auth-app`). Never commit credentials to git.
+```
+src/
+├── components/     # Layout, navbar, UI primitives, status pills
+├── lib/            # MongoDB client, JWT helpers, site config
+└── pages/
+    ├── api/        # Auth, user registration, blog CRUD, health
+    ├── dashboard.tsx
+    ├── register.tsx
+    ├── signin.tsx
+    └── about.tsx
+```
 
-## API
+## Related project
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/health` | DB / config status |
-| `POST` | `/api/v1/user` | Register |
-| `POST` | `/api/login` | Sign in → `{ token, userId, username }` |
-| `GET` | `/api/v1/user/blog` | List your posts (Bearer JWT) |
-| `POST` | `/api/v1/user/blog` | Create post (Bearer JWT; author = logged-in username) |
+[authentication-service](https://github.com/Elli2022/authentication-service) — an earlier Express-based authentication exercise kept as a separate archive.
 
-## Related repositories
+## License
 
-| Repo | Role |
-|------|------|
-| [js3-auth-blog-platform](https://github.com/Elli2022/js3-auth-blog-platform) | **This repo** — consolidated live app |
-| [authentication-service](https://github.com/Elli2022/authentication-service) | Separate archive of `authentication-ms` (Oct 2023 Express exercise) — **not** merged here |
-
-## Legacy branches
-
-Version snapshots from 2023 coursework: `version/main` … `version/redis-cache` on `master` history.
-
-## Repository
-
-https://github.com/Elli2022/js3-auth-blog-platform
+MIT — see repository for details.

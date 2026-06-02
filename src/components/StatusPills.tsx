@@ -6,7 +6,7 @@ type StatusPillsProps = {
   label?: string;
 };
 
-export function StatusPills({ items, className, label = "Projekthöjdpunkter" }: StatusPillsProps) {
+export function StatusPills({ items, className, label = "Highlights" }: StatusPillsProps) {
   return (
     <div
       className={cn("flex flex-wrap gap-2", className)}
@@ -25,20 +25,19 @@ export function StatusPills({ items, className, label = "Projekthöjdpunkter" }:
 }
 
 export const homePills = [
-  "FE22",
-  "JavaScript 3",
-  "Större uppgift",
   "Next.js 14",
+  "TypeScript",
   "MongoDB Atlas",
-  "JWT",
+  "JWT Auth",
+  "Protected Blog",
   "Netlify",
 ] as const;
 
 export const aboutPills = [
-  "Atlas: js3-auth-blog",
-  "Kluster: JS3-app",
-  "blogPosts",
-  "JWT-dashboard",
-  "Postman",
-  "Netlify CI",
+  "MongoDB Atlas",
+  "JWT + bcrypt",
+  "Next.js API Routes",
+  "Dark / Light Theme",
+  "CI Deploy",
+  "Full Stack",
 ] as const;

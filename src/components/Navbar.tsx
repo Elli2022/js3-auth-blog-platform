@@ -2,18 +2,19 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { siteName } from "@/lib/site";
 
 const guestLinks = [
-  { href: "/", label: "Hem" },
-  { href: "/register", label: "Registrera" },
-  { href: "/signin", label: "Logga in" },
-  { href: "/about", label: "Om projektet" },
+  { href: "/", label: "Home" },
+  { href: "/register", label: "Register" },
+  { href: "/signin", label: "Sign in" },
+  { href: "/about", label: "About" },
 ];
 
 const memberLinks = [
-  { href: "/", label: "Hem" },
+  { href: "/", label: "Home" },
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/about", label: "Om projektet" },
+  { href: "/about", label: "About" },
 ];
 
 export default function Navbar() {
@@ -37,7 +38,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-zinc-950/80 backdrop-blur-lg">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
         <Link href="/" className="text-lg font-bold tracking-tight text-white">
-          JS3 <span className="text-violet-400">Auth &amp; Blog</span>
+          {siteName}
         </Link>
         <div className="flex flex-wrap items-center gap-2">
           {loggedIn && username && (
