@@ -101,6 +101,18 @@ src/
     └── about.tsx
 ```
 
+## Project lineage
+
+This repo replaces three archived experiments from 2023–2024:
+
+| Archived repo | Why archived |
+|---------------|--------------|
+| [fullstack-application](https://github.com/Elli2022/fullstack-application) | Early MERN prototype — MD5 passwords, hardcoded secrets |
+| [fullstack-application-legacy](https://github.com/Elli2022/fullstack-application-legacy) | Duplicate legacy snapshot |
+| [fullstack-app-backend-service](https://github.com/Elli2022/fullstack-app-backend-service) | Split backend fragment of the same experiment |
+
+For a larger full-stack showcase, see **[community-hub](https://github.com/Elli2022/community-hub)** (PostgreSQL, social feed, DMs, OpenAPI).
+
 ## Related project
 
 [authentication-service](https://github.com/Elli2022/authentication-service) — an earlier Express-based authentication exercise kept as a separate archive.
